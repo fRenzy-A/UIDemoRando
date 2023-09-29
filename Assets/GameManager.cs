@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public enum State { MainMenu, Options, Credits, Exit, Win, Lose, PauseMenu}
 
-    public State UIState;
-    public State previousUIState;
+    public GameObject UIManager;
+
+    public UIManager _UIScript;
+    public enum GameState { MainMenu, Options, Credits, Exit, Win, Lose, PauseMenu}
+
+    public GameState UIState;
+    public GameState previousUIState;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,21 @@ public class GameManager : MonoBehaviour
     {
         switch (UIState)
         {
+            case GameState.MainMenu:
+                _UIScript.SwitchToMainMenu(); break;
+            case GameState.Options:
+                _UIScript.SwitchToOptions(); break;
+            case GameState.Credits:
+                _UIScript.SwitchToCredits(); break;
+            case GameState.Exit:
+                break;
+            case GameState.PauseMenu:
+                _UIScript.SwitchToPauseScreen(); break;
+            case GameState.Win:
+                _UIScript.SwitchToWinScreen(); break;
+            case GameState.Lose:
+                _UIScript.SwitchToLoseScreen(); break;
+
 
         }
     }
