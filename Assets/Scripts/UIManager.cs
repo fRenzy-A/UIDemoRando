@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-
+    [SerializeField] private GameManager gameManager;
     public Canvas MenuUI;
     public Canvas GameUI;
     public Canvas WinUI;

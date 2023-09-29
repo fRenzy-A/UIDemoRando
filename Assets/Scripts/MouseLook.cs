@@ -17,6 +17,8 @@ public class MouseLook : MonoBehaviour
     float xRotation;
     float yRotation;
 
+
+    public bool canLook;
     private void Start()
     {
         cam = GetComponentInChildren<Camera>();
@@ -27,12 +29,26 @@ public class MouseLook : MonoBehaviour
 
     private void Update()
     {
+        if (canLook)
+        {
+            Looking();
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+    public void Looking()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         MyInput();
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         transform.rotation = Quaternion.Euler(0, yRotation, 0);
-    }
 
+    }
     void MyInput()
     {
         mouseX = Input.GetAxisRaw("Mouse X");
