@@ -63,7 +63,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();
         }
-        if (Input.GetKeyDown(crouchKey))
+        // Disabled these for movement simplicity
+        /*if (Input.GetKeyDown(crouchKey))
         {
             Crouch();
         }
@@ -74,12 +75,12 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyUp(crouchKey) && isGrounded == false)
         {
             Stand();
-        }
+        }*/
 
-        if (Input.GetKeyDown(dashKey))
+        /*if (Input.GetKeyDown(dashKey))
         {
             Dash();
-        }
+        }*/
     }
 
     void MyInput()
