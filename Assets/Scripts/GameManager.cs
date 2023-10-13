@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private UIManager _UIScript;
     private LevelManager _SceneManagerScript;
     private MouseLook _MouseLook;
+
     public enum GameState { MainMenu,Options, Game, Exit, Win, Lose, PauseMenu, Credits}
 
     public GameState gameState;
@@ -29,8 +30,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*_UIScript.SwitchToOptions();*/
-        /*_SceneManagerScript.LoadLevel(0);*/
+        if (_SceneManagerScript.scene != 0)
+        {
+            gameState = GameState.Game;
+        }
         switch (gameState)
         {
             case GameState.MainMenu:
@@ -44,15 +47,16 @@ public class GameManager : MonoBehaviour
             case GameState.Game:
                 previousGameState = gameState;
                 Time.timeScale = 1f;
+                
                 _UIScript.SwitchToGameplay();
                 Player = GameObject.FindWithTag("Player");
                 _MouseLook = Player.GetComponent<MouseLook>();
                 _MouseLook.canLook = true;
 
                 if (Input.GetKeyDown(KeyCode.Escape))
-                {                  
+                {
                     gameState = GameState.PauseMenu;
-                }              
+                }
                 if (Input.GetKeyDown(KeyCode.T))
                 {
                     gameState = GameState.Win;
@@ -95,7 +99,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadThisLevel()
     {
-        _SceneManagerScript.LoadLevel(1);
+        _SceneManagerScript.LoadLevel(1); 
+
         _UIScript.SwitchToGameplay();
         gameState = GameState.Game;
     }
