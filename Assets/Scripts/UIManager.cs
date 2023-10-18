@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+
+using JetBrains.Annotations;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,10 +16,13 @@ public class UIManager : MonoBehaviour
     public Canvas PauseUI;
     public Canvas OptionsUI;
     public Canvas CreditsUI;
+
+    public Text magazineText;
+    public string ammoCount;
     // Start is called before the first frame update
     void Start()
     {
-        
+        magazineText = GameObject.Find("AmmoCount").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -96,4 +102,6 @@ public class UIManager : MonoBehaviour
         OptionsUI.enabled = false;
         CreditsUI.enabled = false;
     }
+
+    
 }
