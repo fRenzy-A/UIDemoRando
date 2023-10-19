@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
     public GameState gameState;
     public GameState previousGameState;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
         _UIScript = UIManager.GetComponent<UIManager>();

@@ -12,6 +12,9 @@ public class PlayerUI : MonoBehaviour
     public Image marker;
     float time;
     public Color tempImage;
+    public TMP_Text magCount;
+
+    public GunHandler gunHandler;
 
     public bool pickedUpHealth;
     // Start is called before the first frame update
@@ -23,7 +26,8 @@ public class PlayerUI : MonoBehaviour
         marker = GameObject.Find("Marker").GetComponent<Image>();
         tempImage = image.color;
         
-
+        gunHandler = GameObject.Find("GunLOL").GetComponent<GunHandler>();
+        magCount = GameObject.Find("MagazineNumber").GetComponent<TMP_Text>();
         
     }
 
@@ -40,6 +44,7 @@ public class PlayerUI : MonoBehaviour
         {
             OnHealthPickup();
         }
+        DisplayMagCount();
     }
 
     public void OnHealthPickup()
@@ -63,5 +68,10 @@ public class PlayerUI : MonoBehaviour
         marker.transform.position = new Vector3(marker.transform.position.x,marker.transform.position.y+2,marker.transform.position.z);
         /*Vector3 targetPos = marker.transform.position;
         marker.anchoredPosition = new Vector3(targetPos.x,targetPos.y+10,targetPos.z);*/
+    }
+
+    public void DisplayMagCount()
+    {
+        magCount.text = gunHandler.ammoCount.text;
     }
 }

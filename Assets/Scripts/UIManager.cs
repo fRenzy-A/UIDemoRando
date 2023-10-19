@@ -17,12 +17,10 @@ public class UIManager : MonoBehaviour
     public Canvas OptionsUI;
     public Canvas CreditsUI;
 
-    public Text magazineText;
-    public string ammoCount;
     // Start is called before the first frame update
     void Start()
     {
-        magazineText = GameObject.Find("AmmoCount").GetComponent<Text>();
+       
     }
 
     // Update is called once per frame

@@ -561,7 +561,7 @@ AnimationClip:
   - time: 0.8333333
     functionName: GunIsSettled
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: b705428ebab8a454fb5377dee7265137, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

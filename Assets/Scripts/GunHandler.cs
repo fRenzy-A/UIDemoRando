@@ -28,15 +28,20 @@ public class GunHandler : MonoBehaviour
         {
             shootAnimation.Play("Shoot");
         }
-        if (Input.GetKeyDown(KeyCode.R)) 
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            ReloadThisGun();
+            shootAnimation.Play("Reload");
         }
-
     }
 
     public void ReloadThisGun()
     {
+        shootAnimation.SetBool("Reload", true);
+        ammoCount.SetText(" ");
+    }
+    public void GunReloaded()
+    {
+        shootAnimation.SetBool("Reload", false);
         ammoCount.SetText(magazineSize.ToString());
     }
 
@@ -45,16 +50,19 @@ public class GunHandler : MonoBehaviour
         
         int currentAmmoCount = int.Parse(ammoCount.text);
         
-        if (currentAmmoCount > 0)
+        if (currentAmmoCount == 0)
+        {
+            shootAnimation.Play("Reload");
+        }
+        else
         {
             currentAmmoCount -= 1;
             ammoCount.text = currentAmmoCount.ToString();
         }
-        else return;
     }
-
+    
     public void GunIsSettled()
     {
-        
+        //im using animation events and apparently this is a hacky way of the gun not depleting ammo while in its shoot animation state
     }
 }
