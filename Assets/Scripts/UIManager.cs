@@ -17,16 +17,30 @@ public class UIManager : MonoBehaviour
     public Canvas OptionsUI;
     public Canvas CreditsUI;
 
+
+
+    public AudioSource MusicVolume;
+    public Slider MusicVolumeSlider;
+
+    public AudioSource ShootV;
+    public AudioSource ReloadV;
+    public AudioSource HealV;
+    public Slider SFXVolumeSlider;
     // Start is called before the first frame update
     void Start()
     {
-       
+        MusicVolumeSlider.maxValue = MusicVolume.volume;
+        MusicVolumeSlider.value = MusicVolumeSlider.maxValue;
+
+        SFXVolumeSlider.maxValue = ShootV.volume;
+        SFXVolumeSlider.maxValue = ReloadV.volume;
+        SFXVolumeSlider.maxValue = HealV.volume;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        AdjustVolume();
     }
 
     public void SwitchToMainMenu()
@@ -101,5 +115,17 @@ public class UIManager : MonoBehaviour
         CreditsUI.enabled = false;
     }
 
-    
+
+
+    public void AdjustVolume()
+    {
+
+        MusicVolume.volume = MusicVolumeSlider.value;
+
+        ShootV.volume = SFXVolumeSlider.value;
+        ReloadV.volume = SFXVolumeSlider.value;
+        //HealV.volume = SFXVolumeSlider.value;
+    }
+
+
 }

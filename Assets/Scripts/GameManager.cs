@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public GameState previousGameState;
     // Start is called before the first frame update
 
+    public AudioSource musicSource;
+
     private void Awake()
     {
         
@@ -28,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         _UIScript = UIManager.GetComponent<UIManager>();
         _SceneManagerScript = SceneManager.GetComponent<LevelManager>();
-        
+        musicSource.Play();
         gameState = GameState.MainMenu;
     }
 
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Game:
                 previousGameState = gameState;
+                
                 Time.timeScale = 1f;
                 
                 _UIScript.SwitchToGameplay();
@@ -70,7 +73,7 @@ public class GameManager : MonoBehaviour
                 {
                     gameState = GameState.Lose;
                 }
-
+                
                 break;
 
             case GameState.PauseMenu:
@@ -84,6 +87,8 @@ public class GameManager : MonoBehaviour
                     _UIScript.SwitchToGameplay();
                     gameState = GameState.Game;
                 }
+
+                musicSource.Pause();
                 break;
             case GameState.Win:
                 Time.timeScale = 0f;
@@ -108,6 +113,7 @@ public class GameManager : MonoBehaviour
 
         _UIScript.SwitchToGameplay();
         gameState = GameState.Game;
+        musicSource.Play();
     }
 
     public void ExitToMenu()
@@ -121,6 +127,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         _UIScript.SwitchToGameplay();
         gameState = GameState.Game;
+        musicSource.Play();
     }
 
     public void EnterOptions()
