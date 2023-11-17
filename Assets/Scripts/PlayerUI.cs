@@ -10,13 +10,15 @@ public class PlayerUI : MonoBehaviour
     public Canvas QuestMarker;
     public Image image;
     public Image marker;
-    float time;
     public Color tempImage;
     public TMP_Text magCount;
 
     public GunHandler gunHandler;
 
     public bool pickedUpHealth;
+
+
+    public Slider healthSlider;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,8 @@ public class PlayerUI : MonoBehaviour
         image = GameObject.Find("GotHealth").GetComponent<Image>();
         marker = GameObject.Find("Marker").GetComponent<Image>();
         tempImage = image.color;
+
+       // healthSlider = GameObject.Find("HealthBar").GetComponent<Slider>();
         
         gunHandler = GameObject.Find("GunLOL").GetComponent<GunHandler>();
         magCount = GameObject.Find("MagazineNumber").GetComponent<TMP_Text>();
@@ -45,6 +49,7 @@ public class PlayerUI : MonoBehaviour
             OnHealthPickup();
         }
         DisplayMagCount();
+        
     }
 
     public void OnHealthPickup()
@@ -73,5 +78,16 @@ public class PlayerUI : MonoBehaviour
     public void DisplayMagCount()
     {
         magCount.text = gunHandler.ammoCount.text;
+    }
+
+    public void SetInitialHealth(int health)
+    {
+        healthSlider.maxValue = health;
+        healthSlider.value = health;
+    }
+
+    public void UpdateHealth(int health)
+    {
+        healthSlider.value = health;
     }
 }
