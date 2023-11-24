@@ -26,6 +26,18 @@ public class UIManager : MonoBehaviour
     public AudioSource ReloadV;
     public AudioSource HealV;
     public Slider SFXVolumeSlider;
+
+
+    public Button DashToggle;
+    public Button UnlockDashCDToggle;
+
+
+    public PlayerMovement playerMovement;
+    bool CanDash;
+
+    bool UnlockToggle;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +47,14 @@ public class UIManager : MonoBehaviour
         SFXVolumeSlider.maxValue = ShootV.volume;
         SFXVolumeSlider.maxValue = ReloadV.volume;
         SFXVolumeSlider.maxValue = HealV.volume;
+        CanDash = true;
+        UnlockToggle = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         AdjustVolume();
     }
 
@@ -127,5 +142,60 @@ public class UIManager : MonoBehaviour
         //HealV.volume = SFXVolumeSlider.value;
     }
 
+    public void DashEnabledOrDisabled()
+    {
+        
+        if (CanDash)
+        {
+            ColorBlock en = DashToggle.colors;
+            en.normalColor = Color.red;
+            en.selectedColor = Color.red;
+            DashToggle.colors = en;
+            playerMovement.canDash = false;
+            CanDash = false;
+            //DashToggle.GetComponent<Image>().color = Color.red;
+            UnlockDashCDToggle.interactable = false;
+            
+        }
+        else if (!CanDash)
+        {
+            ColorBlock en = DashToggle.colors;
+            en.normalColor = Color.green;
+            en.selectedColor = Color.green;
+            DashToggle.colors = en;
+            playerMovement.canDash = true;
+            CanDash = true;
+            //DashToggle.GetComponent<Image>().color = Color.green;
+            UnlockDashCDToggle.interactable = true;
+           
+        }
+    }
 
+    public void UnlockDashEnorDis()
+    {
+        if (UnlockDashCDToggle.interactable && CanDash)
+        {
+            if (UnlockToggle)
+            {
+                ColorBlock en = UnlockDashCDToggle.colors;
+                en.normalColor = Color.red;
+                en.selectedColor = Color.red;
+                UnlockDashCDToggle.colors = en;
+                //UnlockDashCDToggle.GetComponent<Image>().color = Color.red;
+                playerMovement.dashCDAmount = 1;
+                UnlockToggle = false;
+            }
+            else if (!UnlockToggle)
+            {
+                ColorBlock en = UnlockDashCDToggle.colors;
+                en.normalColor = Color.green;
+                en.selectedColor = Color.green;
+                UnlockDashCDToggle.colors = en;
+                //UnlockDashCDToggle.GetComponent<Image>().color = Color.green;
+                playerMovement.dashCDAmount = 0;
+                UnlockToggle = true;
+            }
+        }
+        
+    }
 }

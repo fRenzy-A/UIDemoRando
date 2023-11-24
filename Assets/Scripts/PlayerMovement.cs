@@ -36,6 +36,12 @@ public class PlayerMovement : MonoBehaviour
     float verticalMovemement;
 
 
+    public bool canDash = true;
+
+    float dashCD;
+
+    public float dashCDAmount;
+
     bool isGrounded;
     Vector3 moveDirection;
 
@@ -46,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         //sphereAttack = GetComponent<GameObject>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        
     }
 
     void Awake()
@@ -63,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();
         }
-        // Disabled these for movement simplicity
         /*if (Input.GetKeyDown(crouchKey))
         {
             Crouch();
@@ -77,10 +83,26 @@ public class PlayerMovement : MonoBehaviour
             Stand();
         }*/
 
-        /*if (Input.GetKeyDown(dashKey))
+        if (dashCD > 0) 
         {
-            Dash();
-        }*/
+            canDash = false;
+            dashCD -= Time.deltaTime;
+        }
+        if (dashCD < 0)
+        {
+            canDash = true;
+            dashCD = 0;
+        }
+        if (canDash)
+        {
+
+            if (Input.GetKeyDown(dashKey))
+            {
+                Dash();
+                dashCD = dashCDAmount;
+            }
+        }
+        
     }
 
     void MyInput()

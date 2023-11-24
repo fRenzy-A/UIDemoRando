@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     private LevelManager _SceneManagerScript;
     private MouseLook _MouseLook;
 
+
+    public GunHandler GunHandler;
+
     public enum GameState { MainMenu,Options, Game, Exit, Win, Lose, PauseMenu, Credits}
 
     public GameState gameState;
@@ -50,6 +53,14 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Options:
                 _UIScript.SwitchToOptions();
+                if (Input.GetKeyDown(KeyCode.Escape)&&previousGameState == GameState.MainMenu)
+                {
+                    gameState = GameState.MainMenu;
+                }
+                if (Input.GetKeyDown(KeyCode.Escape) && previousGameState == GameState.PauseMenu)
+                {
+                    gameState = GameState.PauseMenu;
+                }
                 break;
             case GameState.Game:
                 previousGameState = gameState;
@@ -61,6 +72,8 @@ public class GameManager : MonoBehaviour
                 _MouseLook = Player.GetComponent<MouseLook>();
                 _MouseLook.canLook = true;
 
+                GunHandler = GameObject.Find("GunLOL").GetComponent<GunHandler>();  
+                GunHandler.enabled = true;
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     gameState = GameState.PauseMenu;
@@ -81,6 +94,7 @@ public class GameManager : MonoBehaviour
                 _UIScript.SwitchToPauseScreen();
                 Time.timeScale = 0f;           
                 _MouseLook.canLook = false;
+                GunHandler.enabled = false;
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     Time.timeScale = 1f;
@@ -103,6 +117,10 @@ public class GameManager : MonoBehaviour
             case GameState.Credits:
                 _UIScript.SwitchToCredits();
                 _MouseLook.canLook = false;
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    previousGameState = gameState;
+                }
                 break;
         }
     }
