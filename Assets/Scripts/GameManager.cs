@@ -9,10 +9,12 @@ public class GameManager : MonoBehaviour
     public GameObject UIManager;
     public GameObject SceneManager;
     public GameObject Player;
+    public GameObject UITweenManager;
 
     private UIManager _UIScript;
     private LevelManager _SceneManagerScript;
     private MouseLook _MouseLook;
+    private UITweening _UITweenManager;
 
 
     public GunHandler GunHandler;
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         _UIScript = UIManager.GetComponent<UIManager>();
         _SceneManagerScript = SceneManager.GetComponent<LevelManager>();
+        _UITweenManager = UITweenManager.GetComponent<UITweening>();
         musicSource.Play();
         gameState = GameState.MainMenu;
     }
@@ -77,6 +80,7 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     gameState = GameState.PauseMenu;
+                    _UITweenManager.PausedGame();
                 }
                 if (Input.GetKeyDown(KeyCode.T))
                 {
@@ -90,6 +94,8 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.PauseMenu:
+
+                
                 previousGameState = gameState;
                 _UIScript.SwitchToPauseScreen();
                 Time.timeScale = 0f;           
@@ -101,7 +107,7 @@ public class GameManager : MonoBehaviour
                     _UIScript.SwitchToGameplay();
                     gameState = GameState.Game;
                 }
-
+                
                 musicSource.Pause();
                 break;
             case GameState.Win:
