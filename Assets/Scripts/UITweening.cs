@@ -9,8 +9,7 @@ public class UITweening : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject title, playButton, mainMenuSettingsButton, exitButton, creditsButton,
-    pauseResumeButton, pauseSettingsButton, pauseExitButton,
-    settingsText, volumeSlider, SFXSlider, dashSettings, settingsBackButton,settingsPanel;
+    pauseResumeButton, pauseSettingsButton, pauseExitButton;
 
     public CanvasGroup _pauseResume;
 
@@ -37,27 +36,25 @@ public class UITweening : MonoBehaviour
         
     }
 
-    public void EnteredSettings()
-    {
-
-    }
-    public void ExitedSettings()
-    {
-
-    }
-
     public void PausedGame()
     {
+        LeanTween.moveLocalY(pauseResumeButton, 30f, 0.75f).setEase(LeanTweenType.easeOutExpo).setIgnoreTimeScale(true);
+        LeanTween.moveLocalY(pauseSettingsButton, -155f, 0.75f).setEase(LeanTweenType.easeOutExpo).setIgnoreTimeScale(true);
+        LeanTween.moveLocalY(pauseExitButton, -355f, 0.75f).setEase(LeanTweenType.easeOutExpo).setIgnoreTimeScale(true);
         LeanTween.alphaCanvas(pauseResumeButton.GetComponent<CanvasGroup>(), 1f, 0.75f).setIgnoreTimeScale(true);
+        LeanTween.alphaCanvas(pauseSettingsButton.GetComponent<CanvasGroup>(), 1f, 0.75f).setIgnoreTimeScale(true);
+        LeanTween.alphaCanvas(pauseExitButton.GetComponent<CanvasGroup>(), 1f, 0.75f).setIgnoreTimeScale(true);
+
     }
 
     public void ResumedGame()
     {
-
+        LeanTween.alphaCanvas(pauseResumeButton.GetComponent<CanvasGroup>(), 0f, 0f).setIgnoreTimeScale(true);
+        LeanTween.alphaCanvas(pauseSettingsButton.GetComponent<CanvasGroup>(), 0f, 0f).setIgnoreTimeScale(true);
+        LeanTween.alphaCanvas(pauseExitButton.GetComponent<CanvasGroup>(), 0f, 0f).setIgnoreTimeScale(true);
+        LeanTween.moveLocalY(pauseResumeButton, -106f, 0f).setIgnoreTimeScale(true);
+        LeanTween.moveLocalY(pauseSettingsButton, -291f, 0f).setIgnoreTimeScale(true);
+        LeanTween.moveLocalY(pauseExitButton, -491f, 0f).setIgnoreTimeScale(true);
     }
 
-    public void EnteredCredits()
-    {
-
-    }
 }

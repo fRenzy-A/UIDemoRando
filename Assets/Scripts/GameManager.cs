@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Game:
                 previousGameState = gameState;
-                
+                _UITweenManager.ResumedGame();
                 Time.timeScale = 1f;
                 
                 _UIScript.SwitchToGameplay();
@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour
     public void EnterOptions()
     {
         gameState = GameState.Options;
+
     }
 
     public void OpenCredits()
