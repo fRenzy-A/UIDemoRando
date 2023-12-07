@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.Game:
+                AudioListener.pause = false;
                 previousGameState = gameState;
                 _UITweenManager.ResumedGame();
                 Time.timeScale = 1f;
@@ -94,8 +95,8 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.PauseMenu:
+                AudioListener.pause = true;
 
-                
                 previousGameState = gameState;
                 _UIScript.SwitchToPauseScreen();
                 Time.timeScale = 0f;           
